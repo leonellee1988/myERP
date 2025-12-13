@@ -1,0 +1,5 @@
+myERP.db
+*.db
+*.sqlite
+venv/
+./__pycache__/
