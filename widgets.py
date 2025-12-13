@@ -2,7 +2,12 @@ import customtkinter as ctk
 from tkcalendar import DateEntry
 from datetime import datetime
 
-# (1) Método para la creación de frames.
+# Función para configurar apariencia.
+def config_apariencia(color_apariencia, color_default):
+    ctk.set_appearance_mode(color_apariencia)
+    ctk.set_default_color_theme(color_default)
+
+# Método para la creación de frames.
 def crear_frame(parent, fill, pady, text):
         frame = ctk.CTkFrame(parent)
         frame.pack(fill=fill, pady=pady)
@@ -10,13 +15,13 @@ def crear_frame(parent, fill, pady, text):
         label.pack(pady=10)
         return frame
 
-# (2) Método para la creación de botones.
+# Método para la creación de botones.
 def crear_boton(frame, text, command):
     boton = ctk.CTkButton(frame, text=text, command=command, height=40, font=("Arial", 14, "bold"))
     boton.pack(pady=10)
     return boton
 
-# (3) Método para la creación de campos (entry).
+# Método para la creación de campos (entry).
 def crear_campo_entry(frame, texto, placeholder):
     # Frame interno para objeto.
     contenedor = ctk.CTkFrame(frame, fg_color="transparent")
@@ -31,7 +36,7 @@ def crear_campo_entry(frame, texto, placeholder):
     entry.pack(side="left", fill="x", expand=True)
     return entry
 
-# (4) Método para la creación de campos (combobox).
+# Método para la creación de campos (combobox).
 def crear_campo_combo(frame, texto, opciones, valor_default=None):
     # Frame interno para objeto.
     contenedor = ctk.CTkFrame(frame, fg_color="transparent")
@@ -52,19 +57,19 @@ def crear_campo_combo(frame, texto, opciones, valor_default=None):
          combobox.set(opciones[0])
     return combobox
 
-# (5) Método para frame izquierda.
+# Método para frame izquierda.
 def crear_frame_izquierda(parent):
      frame = ctk.CTkFrame(parent)
      frame.pack(side="left", fill="both", expand=True, padx=(20, 10), pady=10)
      return frame
 
-# (6) Método para frame derecha.
+# Método para frame derecha.
 def crear_frame_derecha(parent):
      frame = ctk.CTkFrame(parent)
      frame.pack(side="right", fill="both", expand=True, padx=(10, 20), pady=10)
      return frame
 
-# (7) Método para la creación de campos automáticos (entry).
+# Método para la creación de campos automáticos (entry).
 def crear_campo_entry_auto(frame, texto, placeholder):
     # Frame interno para objeto.
     contenedor = ctk.CTkFrame(frame, fg_color="transparent")
@@ -80,7 +85,7 @@ def crear_campo_entry_auto(frame, texto, placeholder):
     entry.configure(state="readonly", fg_color="#1e1e1e", border_color="#4CC9F0", text_color="#4CC9F0")
     return entry
 
-# (8) Método para crear encabezados de tabla.
+# Método para crear encabezados de tabla.
 def crear_encabezados_tabla(parent, configuraciones, pady=5):
     # Lista de encabezados.
     encabezados = []
@@ -99,7 +104,7 @@ def crear_encabezados_tabla(parent, configuraciones, pady=5):
         encabezados.append(label)
     return encabezados
 
-# (9) Método para crear líneas de compra.
+# Método para crear líneas de compra.
 def crear_linea_detalle(parent, num_linea, productos_opciones, grid_columnconfigure=True):
     # Frame para esta línea.
     linea_frame = ctk.CTkFrame(parent)

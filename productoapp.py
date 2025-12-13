@@ -1,12 +1,11 @@
-import customtkinter as ctk
 from tkinter import messagebox
 from database import insertar_producto
-from widgets import crear_frame, crear_frame_izquierda, crear_frame_derecha, crear_campo_combo, \
-crear_boton, crear_campo_entry
+from base_app import BaseERPApp
+from widgets import config_apariencia, crear_frame, crear_frame_izquierda, crear_frame_derecha, \
+crear_campo_combo, crear_boton, crear_campo_entry
 
 # Configurar apariencia.
-ctk.set_appearance_mode("dark")
-ctk.set_default_color_theme("blue")
+config_apariencia("dark", "blue")
 
 # Opciones para combobox categorias.
 categorias = ["Seleccione una categoría...", "Laptop", "PC Escritorio", "Impresoras", "Audífonos", "Almacenamiento",
@@ -16,20 +15,10 @@ categorias = ["Seleccione una categoría...", "Laptop", "PC Escritorio", "Impres
 unidad_medida = ["Selecciona una unidad de medida...", "Unidad", "Par", "Metro (m)", "Centímetro (cm)", "Paquete",
     "Caja", "Resma", "Cartucho"]
 
-class ProductoApp(ctk.CTk):
+class ProductoApp(BaseERPApp):
     # (1) Método constructor.
     def __init__(self):
-        super().__init__()
-
-        # Configurar ventana principal.
-        self.title("myERP")
-        self.resizable(True, True)
-
-        # Configurar frame principal.
-        self.main_frame = ctk.CTkFrame(self)
-        self.main_frame.pack(fill="both", expand=True, padx=20, pady=20)
-        self.label_titulo = ctk.CTkLabel(self.main_frame, text="Ingreso de productos", font=("Arial", 20, "bold"))
-        self.label_titulo.pack(pady=20)
+        super().__init__(titulo_modulo="Ingreso de productos")
         self._crear_seccion_producto()
     
     # (2) Método para la creación de productos (viene de constructor)
@@ -184,6 +173,5 @@ class ProductoApp(ctk.CTk):
  
 # Punto de entrada.
 if __name__ == "__main__":
-
     app = ProductoApp()
     app.mainloop()
