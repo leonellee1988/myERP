@@ -1,31 +1,20 @@
-import customtkinter as ctk
 from tkinter import messagebox
 from database import insertar_cliente
-from widgets import crear_frame, crear_frame_izquierda, crear_frame_derecha, crear_campo_combo, \
-crear_boton, crear_campo_entry
+from base_app import BaseERPApp
+from widgets import config_apariencia, crear_frame, crear_frame_izquierda, crear_frame_derecha, \
+crear_campo_combo, crear_boton, crear_campo_entry
 
 # Opciones para combobox plazo en cobros.
 plazos_cobro = ["Seleccione el plazo de cobro...", "Al contado", "Crédito 7 días", "Crédito 15 días",
     "Crédito 30 días", "Crédito 60 días", "Crédito 90 días"]
 
 # Configurar apariencia.
-ctk.set_appearance_mode("dark")
-ctk.set_default_color_theme("blue")
+config_apariencia("dark", "blue")
 
-class ClienteApp(ctk.CTk):
-    # (1) Método constructor.
+class ClienteApp(BaseERPApp):
+    # (1) Método constructor
     def __init__(self):
-        super().__init__()
-
-        # Configurar ventana principal.
-        self.title("myERP")
-        self.resizable(True, True)
-
-        # Configurar frame principal.
-        self.main_frame = ctk.CTkFrame(self)
-        self.main_frame.pack(fill="both", expand=True, padx=20, pady=20)
-        self.label_titulo = ctk.CTkLabel(self.main_frame, text="Ingreso de clientes", font=("Arial", 20, "bold"))
-        self.label_titulo.pack(pady=20)
+        super().__init__(titulo_modulo="Ingreso de clientes")
         self._crear_seccion_cliente()
     
     # (2) Método para la creación de clientes (viene de constructor)
@@ -139,6 +128,5 @@ class ClienteApp(ctk.CTk):
 
 # Punto de entrada.
 if __name__ == "__main__":
-
     app = ClienteApp()
     app.mainloop()

@@ -1,29 +1,19 @@
 import customtkinter as ctk
 from tkinter import messagebox
-from datetime import datetime
-from widgets import crear_frame, crear_frame_izquierda, crear_frame_derecha, crear_campo_combo, \
-crear_campo_entry, crear_campo_entry_auto, crear_encabezados_tabla, crear_linea_detalle
-from scroll import crear_scroll_vertical
 from database import obtener_proveedores, obtener_productos
+from base_app import BaseERPApp
+from datetime import datetime
+from widgets import config_apariencia, crear_frame, crear_frame_izquierda, crear_frame_derecha, \
+crear_campo_combo, crear_campo_entry, crear_campo_entry_auto, crear_encabezados_tabla, crear_linea_detalle
+from scroll import crear_scroll_vertical
 
 # Configurar apariencia.
-ctk.set_appearance_mode("dark")
-ctk.set_default_color_theme("blue")
+config_apariencia("dark", "blue")
 
-class OrdenCompra(ctk.CTk):
+class OrdenCompra(BaseERPApp):
     # (1) Método constructor.
     def __init__(self):
-        super().__init__()
-
-        # Configurar ventana principal.
-        self.title("myERP")
-        self.resizable(True, True)
-
-        # Configurar frame principal.
-        self.main_frame = ctk.CTkFrame(self)
-        self.main_frame.pack(fill="both", expand=True, padx=20, pady=20)
-        self.label_titulo = ctk.CTkLabel(self.main_frame, text="Ingreso de Orden de Compra", font=("Arial", 20, "bold"))
-        self.label_titulo.pack(pady=20)
+        super().__init__(titulo_modulo="Ingreso de orden de compra")
 
         # Métodos de clase.
         self._crear_seccion_cabecera()
@@ -252,6 +242,5 @@ class OrdenCompra(ctk.CTk):
 
 # Punto de entrada.
 if __name__ == "__main__":
-
     app = OrdenCompra()
     app.mainloop()
