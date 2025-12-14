@@ -13,8 +13,7 @@ def insertar_cliente(nombre, nit, edad, telefono, email, plazo_cobro):
         cursor.execute(
             """INSERT INTO clientes (nombre, nit, edad, telefono, email, plazo_cobro) 
             VALUES (?, ?, ?, ?, ?, ?)""",
-            (nombre, nit, int(edad), telefono, email, plazo_cobro)
-        )
+            (nombre, nit, int(edad), telefono, email, plazo_cobro))
         conn.commit()
     except sqlite3.IntegrityError as error:
         error_msg = str(error)
@@ -27,10 +26,13 @@ def insertar_cliente(nombre, nit, edad, telefono, email, plazo_cobro):
         else:
             raise Exception(f"Error de datos duplicados: {error_msg}")
     except Exception as error:
-        raise error
+        raise Exception(f"Error al insertar cliente: {str(error)}")
     finally:
         if conn:
-            conn.close()
+            try:
+                conn.close()
+            except:
+                pass
 
 # (3) Función para insertar registros tabla Productos.
 def insertar_producto(nombre, descripcion, categoria, costo, precio_venta, stock, stock_min, unidad):
@@ -41,14 +43,16 @@ def insertar_producto(nombre, descripcion, categoria, costo, precio_venta, stock
         cursor.execute(
         """INSERT INTO productos (nombre, descripcion, categoria, costo, precio_venta, stock, stock_min, unidad) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-            (nombre, descripcion, categoria, float(costo), float(precio_venta), float(stock), float(stock_min), unidad)
-        )
+            (nombre, descripcion, categoria, float(costo), float(precio_venta), float(stock), float(stock_min), unidad))
         conn.commit()
     except Exception as error:
-        raise error
+        raise Exception(f"Error al insertar producto: {str(error)}")
     finally:
         if conn:
-            conn.close()
+            try:
+                conn.close()
+            except:
+                pass
 
 # (4) Función para insertar registros tabla Proveedores.
 def insertar_proveedor(nombre, nit, contacto, telefono, email, plazo_pago):
@@ -59,8 +63,7 @@ def insertar_proveedor(nombre, nit, contacto, telefono, email, plazo_pago):
         cursor.execute(
             """INSERT INTO proveedores (nombre, nit, contacto, telefono, email, plazo_pago) 
             VALUES (?, ?, ?, ?, ?, ?)""",
-            (nombre, nit, contacto, telefono, email, plazo_pago)
-        )
+            (nombre, nit, contacto, telefono, email, plazo_pago))
         conn.commit()
     except sqlite3.IntegrityError as error:
         error_msg = str(error)
@@ -73,10 +76,13 @@ def insertar_proveedor(nombre, nit, contacto, telefono, email, plazo_pago):
         else:
             raise Exception(f"Error de datos duplicados: {error_msg}")
     except Exception as error:
-        raise error
+        raise Exception(f"Error al insertar proveedor: {str(error)}")
     finally:
         if conn:
-            conn.close()
+            try:
+                conn.close()
+            except:
+                pass
 
 # (5) Función para obtener registros de la tabla Proveedores.
 def obtener_proveedores():
@@ -91,9 +97,9 @@ def obtener_proveedores():
         if "no such table" in str(error).lower():
             raise Exception("La tabla proveedores no existe")
         else:
-            raise Exception(f"Error en la base de datos {error}")
+            raise Exception(f"Error en la base de datos {str(error)}")
     except Exception as error:
-        raise Exception(f"Error inesperado: {error}")
+        raise Exception(f"Error al obtener proveedores: {str(error)}")
     finally:
         if conn:
             conn.close()
@@ -111,9 +117,9 @@ def obtener_productos():
         if "no such table" in str(error).lower():
             raise Exception("La tabla productos no existe")
         else:
-            raise Exception(f"Error en la base de datos {error}")
+            raise Exception(f"Error en la base de datos {str(error)}")
     except Exception as error:
-        raise Exception(f"Error inesperado: {error}")
+        raise Exception(f"Error al obtener productos: {str(error)}")
     finally:
         if conn:
             conn.close()
