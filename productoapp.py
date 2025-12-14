@@ -1,6 +1,7 @@
 from tkinter import messagebox
 from database import insertar_producto
 from base_app import BaseERPApp
+from validaciones import Validaciones
 from widgets import config_apariencia, crear_frame, crear_frame_izquierda, crear_frame_derecha, \
 crear_campo_combo, crear_boton, crear_campo_entry
 
@@ -8,11 +9,11 @@ crear_campo_combo, crear_boton, crear_campo_entry
 config_apariencia("dark", "blue")
 
 # Opciones para combobox categorias.
-categorias = ["Seleccione una categoría...", "Laptop", "PC Escritorio", "Impresoras", "Audífonos", "Almacenamiento",
+categorias = ["Seleccione un valor...", "Laptop", "PC Escritorio", "Impresoras", "Audífonos", "Almacenamiento",
     "Teclados", "Mouse", "Celulares", "Consolas", "Cables", "Bocinas"]
 
 # Opciones para combobox unidad de medida.
-unidad_medida = ["Selecciona una unidad de medida...", "Unidad", "Par", "Metro (m)", "Centímetro (cm)", "Paquete",
+unidad_medida = ["Seleccione un valor...", "Unidad", "Par", "Metro (m)", "Centímetro (cm)", "Paquete",
     "Caja", "Resma", "Cartucho"]
 
 class ProductoApp(BaseERPApp):
@@ -46,93 +47,41 @@ class ProductoApp(BaseERPApp):
     def _validar_producto(self, nombre, descripcion, categoria, costo, precio, stock, stock_min, unidad):
 
         # Validación campo Nombre.
-        if not nombre or len(nombre.strip()) == 0:
-            messagebox.showerror("Error", "El campo nombre es obligatorio")
+        if not Validaciones.validar_campo_obligatorio(nombre, "nombre producto"):
             return False
         
         # Validación campo Descripción.
-        if not descripcion or len(descripcion.strip()) == 0:
-            messagebox.showerror("Error", "El campo descripción es obligatorio")
+        if not Validaciones.validar_campo_obligatorio(descripcion, "descripción"):
             return False
         
         # Validación campo Categoría.
-        if not categoria or len(categoria.strip()) == 0:
-            messagebox.showerror("Error", "El campo categoría es obligatorio")
-            return False
-        if categoria not in categorias:
-            messagebox.showerror("Error", "Seleccione una categoría válida")
-            return False
-        if categoria == "Seleccione una categoría...":
-            messagebox.showerror("Error", "Seleccione una categoría válida")
+        if not Validaciones.validar_combobox(categoria, categorias, "categoría"):
             return False
         
         # Validación campo Costo.
-        if not costo:
-            messagebox.showerror("Error", "El campo costo es obligatorio")
-            return False
-        try:
-            costo_num = float(costo)
-            if costo_num < 0:
-                messagebox.showerror("Error", "El costo debe ser mayor a cero")
-                return False
-        except ValueError:
-            messagebox.showerror("Error", "El costo debe ser un número real")
+        if not Validaciones.validar_valor_monetario(costo, "costo"):
             return False
         
         # Validación campo Precio.
-        if not precio:
-            messagebox.showerror("Error", "El campo precio es obligatorio")
-            return False
-        try:
-            precio_num = float(precio)
-            if precio_num < 0:
-                messagebox.showerror("Error", "El precio debe ser mayor a cero")
-                return False
-        except ValueError:
-            messagebox.showerror("Error", "El precio debe ser un número real")
+        if not Validaciones.validar_valor_monetario(precio, "precio"):
             return False
         
         # Validación campo Stock.
-        if not stock:
-            messagebox.showerror("Error", "El campo stock es obligatorio")
-            return False
-        try:
-            stock_num = float(stock)
-            if stock_num < 0:
-                messagebox.showerror("Error", "El stock debe ser mayor o igual a cero")
-                return False
-        except ValueError:
-            messagebox.showerror("Error", "El stock debe ser un número real")
+        if not Validaciones.validar_valor_monetario(stock, "stock"):
             return False
         
         # Validación campo Stock Mínimo:
-        if not stock_min:
-            messagebox.showerror("Error", "El campo stock mínimo es obligatorio")
-            return False
-        try:
-            stock_min_num = float(stock_min)
-            if stock_min_num < 0:
-                messagebox.showerror("Error", "El stock mínimo debe ser mayor o igual que cero")
-                return False
-        except ValueError:
-            messagebox.showerror("Error", "El stock mínimo debe ser un número real")
+        if not Validaciones.validar_valor_monetario(stock_min, "stock mínimo"):
             return False
         
         # Validación campo Unidad de Medida.
-        if not unidad or len(unidad.strip()) == 0:
-            messagebox.showerror("Error", "El campo unidad medida es obligatorio")
-            return False
-        if unidad not in unidad_medida:
-            messagebox.showerror("Error", "Seleccione una unidad medida válida")
-            return False
-        if unidad == "Selecciona una unidad de medida...":
-            messagebox.showerror("Error", "Seleccione una unidad medida válida")
+        if not Validaciones.validar_combobox(unidad, unidad_medida, "unidad de medida"):
             return False
         
         # Validación Costo vs Precio.
-        if costo_num > precio_num:
-            messagebox.showerror("Error", "El costo es mayor que el precio de venta")
+        if not Validaciones.validar_valores(costo, precio, "costo", "precio"):
             return False
+        
         return True
     
     # (4) Método para limpiar campos.

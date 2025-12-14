@@ -1,8 +1,7 @@
-from abc import ABC, abstractmethod
 import customtkinter as ctk
 
 # Clase constructor.
-class BaseERPApp(ctk.CTk, ABC):
+class BaseERPApp(ctk.CTk):
     def __init__(self, titulo_modulo: str):
         super().__init__()
 

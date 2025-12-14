@@ -1,11 +1,12 @@
 from tkinter import messagebox
 from database import insertar_proveedor
 from base_app import BaseERPApp
+from validaciones import Validaciones
 from widgets import config_apariencia, crear_frame, crear_frame_izquierda, crear_frame_derecha, \
 crear_campo_combo, crear_boton, crear_campo_entry
 
 # Opciones para combobox plazo en pagos.
-plazos_pago = ["Seleccione el plazo de pago...", "Al contado", "Crédito 7 días", "Crédito 15 días",
+plazos_pago = ["Seleccione un valor...", "Al contado", "Crédito 7 días", "Crédito 15 días",
     "Crédito 30 días", "Crédito 60 días", "Crédito 90 días"]
 
 # Configurar apariencia.
@@ -40,50 +41,29 @@ class ProveedorApp(BaseERPApp):
     def _validar_proveedor(self, nombre, nit, contacto, telefono, email, plazo_pago):
 
         # Validación para campo Nombre.
-        if not nombre or len(nombre.strip()) == 0:
-            messagebox.showerror("Error", "El campo nombre es obligatorio")
+        if not Validaciones.validar_campo_obligatorio(nombre, "nombre proveedor"):
             return False
         
         # Validación para campo NIT.
-        if not nit or len(nit.strip()) == 0:
-            messagebox.showerror("Error", "El campo NIT es obligatorio")
+        if not Validaciones.validar_campo_obligatorio(nit, "NIT"):
             return False
         
         # Validación para campo Contacto.
-        if not contacto or len(contacto.strip()) == 0:
-            messagebox.showerror("Error", "El campo contacto es obligatorio")
+        if not Validaciones.validar_campo_obligatorio(contacto, "contacto"):
             return False
         
         # Validación para campo Teléfono.
-        if not telefono or len(telefono.strip()) == 0:
-            messagebox.showerror("Error", "El campo teléfono es obligatorio")
-            return False
-        if len(telefono.strip()) != 9 or "-" not in telefono:
-            messagebox.showerror("Error", "Ingrese un número de teléfono válido")
+        if not Validaciones.validar_telefono(telefono, "teléfono"):
             return False
         
         # Validación para campo Email.
-        if not email or len(email.strip()) == 0:
-            messagebox.showerror("Error", "El campo email es obligatorio")
-            return False
-        if "@" not in email:
-            messagebox.showerror("Error", "Ingrese un email válido")
-            return False
-        usuario, _, dominio = email.partition("@")
-        if not usuario or "." not in dominio:
-            messagebox.showerror("Error", "Ingrese un email válido")
+        if not Validaciones.validar_email(email, "email"):
             return False
         
         # Validación para campo Plazo de Pago.
-        if not plazo_pago or len(plazo_pago.strip()) == 0:
-            messagebox.showerror("Error", "El campo plazo pago es obligatorio")
+        if not Validaciones.validar_combobox(plazo_pago, plazos_pago, "plazo de pago"):
             return False
-        if plazo_pago not in plazos_pago:
-            messagebox.showerror("Error", "Ingrese un plazo de pago válido")
-            return False
-        if plazo_pago == "Seleccione el plazo de pago...":
-            messagebox.showerror("Error", "Ingrese un plazo de pago válido")
-            return False
+        
         return True
 
     # (4) Método para limpiar campos.
