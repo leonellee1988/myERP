@@ -1,21 +1,13 @@
 import customtkinter as ctk
 
 def crear_scroll_vertical(parent, altura_maxima=300, fg_color="transparent"):
-    # Frame contenedor.
+
     frame_contenedor = ctk.CTkFrame(parent, fg_color=fg_color)
-    
-    # Canvas.
     canvas = ctk.CTkCanvas(frame_contenedor, highlightthickness=0, height=altura_maxima, bg="#1e1e1e")
-    
-    # Scrollbar.
     scrollbar = ctk.CTkScrollbar(frame_contenedor, command=canvas.yview)
     canvas.configure(yscrollcommand=scrollbar.set)
-    
-    # Frame interior (del mismo color que el Canvas).
     frame_interior = ctk.CTkFrame(canvas, fg_color="#1e1e1e")
     canvas.create_window((0, 0), window=frame_interior, anchor="nw")
-    
-    # Empaquetar.
     scrollbar.pack(side="right", fill="y")
     canvas.pack(side="left", fill="both", expand=True)
     

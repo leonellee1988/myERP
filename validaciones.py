@@ -1,7 +1,9 @@
 from tkinter import messagebox
+from datetime import datetime
 
 class Validaciones:
 
+    # Método para validar campos obligatorios.
     @staticmethod
     def validar_campo_obligatorio(valor, nombre_campo: str) -> bool:
         if not valor or len(valor.strip()) == 0:
@@ -9,6 +11,7 @@ class Validaciones:
             return False 
         return True
     
+    # Método para validar edades.
     @staticmethod
     def validar_edad(valor, nombre_campo: str) -> bool:
         if not valor or len(str(valor).strip()) == 0:
@@ -24,6 +27,7 @@ class Validaciones:
             return False
         return True
     
+    # Método para validar números de teléfono.
     @staticmethod
     def validar_telefono(valor, nombre_campo: str) -> bool:
         if not valor or len(valor.strip()) == 0:
@@ -33,7 +37,8 @@ class Validaciones:
             messagebox.showerror("Error", "Ingrese un número de teléfono válido")
             return False
         return True
-    
+
+   # Método para validar correos electrónicos. 
     @staticmethod
     def validar_email(valor, nombre_campo: str) -> bool:
         if not valor or len(valor.strip()) == 0:
@@ -48,6 +53,7 @@ class Validaciones:
             return False
         return True
     
+    # Método para validar comboboxes.
     @staticmethod
     def validar_combobox(valor, lista_opciones, nombre_campo: str) -> bool:
         if not valor or len(valor.strip()) == 0:
@@ -58,6 +64,7 @@ class Validaciones:
             return False
         return True
     
+    # Métodos para validar valores monetarios.
     @staticmethod
     def validar_valor_monetario(valor, nombre_campo: str) -> bool:
         if not valor:
@@ -73,6 +80,7 @@ class Validaciones:
             return False
         return True
     
+    # Método para comparar valores monetarios entre sí.
     @staticmethod
     def validar_valores(val1: float, val2:float, n1:str, n2:str) -> bool:
         try:
@@ -83,4 +91,18 @@ class Validaciones:
                 return False
             return True
         except ValueError:
+            return False
+    
+    # Método para validar fechas.
+    @staticmethod
+    def validar_fecha(valor, nombre_campo: str) -> bool:
+        if not valor or len(valor.strip()) == 0:
+            messagebox.showerror("Error", f"El campo: {nombre_campo} es obligatorio")
+            return False
+        valor = valor.strip()
+        try:
+            datetime.strptime(valor, "%d/%m/%Y")
+            return True
+        except ValueError:
+            messagebox.showerror("Error", "Ingrese una fecha válida")
             return False

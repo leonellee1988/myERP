@@ -2,11 +2,10 @@ from tkinter import messagebox
 from database import insertar_producto
 from base_app import BaseERPApp
 from validaciones import Validaciones
-from widgets import config_apariencia, crear_frame, crear_frame_izquierda, crear_frame_derecha, \
-crear_campo_combo, crear_boton, crear_campo_entry
+from widgets import WidgetsFactory
 
 # Configurar apariencia.
-config_apariencia("dark", "blue")
+WidgetsFactory.config_apariencia("dark", "blue")
 
 # Opciones para combobox categorias.
 categorias = ["Seleccione un valor...", "Laptop", "PC Escritorio", "Impresoras", "Audífonos", "Almacenamiento",
@@ -24,24 +23,24 @@ class ProductoApp(BaseERPApp):
     
     # (2) Método para la creación de productos (viene de constructor)
     def _crear_seccion_producto(self):
-        frame_producto = crear_frame(self.main_frame, "x", 10, "Registrar nuevo producto")
+        frame_producto = WidgetsFactory.crear_frame(self.main_frame, "x", 10, "Registrar nuevo producto")
 
         # Contenedor para el frame izquierda/derecha.
-        frame_izquierda = crear_frame_izquierda(frame_producto)
-        frame_derecha = crear_frame_derecha(frame_producto)
+        frame_izquierda = WidgetsFactory.crear_frame_izquierda(frame_producto)
+        frame_derecha = WidgetsFactory.crear_frame_derecha(frame_producto)
 
         # Creación de los campos del módulo Productos.
-        self.entry_nombre = crear_campo_entry(frame_izquierda, "Nombre del producto:", "Laptop Latitude 5540")
-        self.entry_descripcion = crear_campo_entry(frame_izquierda, "Descripción:", "Dell procesador Core i5 8G Ram")
-        self.combo_categoria = crear_campo_combo(frame_izquierda, "Categoría:", categorias)
-        self.entry_costo = crear_campo_entry(frame_izquierda, "Costo:", "5000.00")
-        self.entry_precio = crear_campo_entry(frame_derecha, "Precio:", "10000.00")
-        self.entry_stock = crear_campo_entry(frame_derecha, "Stock actual:", "10")
-        self.entry_stock_min = crear_campo_entry(frame_derecha, "Stock mínimo:", "5")
-        self.combo_unidad = crear_campo_combo(frame_derecha, "Unidad medida:", unidad_medida)
+        self.entry_nombre = WidgetsFactory.crear_campo_entry(frame_izquierda, "Nombre del producto:", "Laptop Latitude 5540")
+        self.entry_descripcion = WidgetsFactory.crear_campo_entry(frame_izquierda, "Descripción:", "Dell procesador Core i5 8G Ram")
+        self.combo_categoria = WidgetsFactory.crear_campo_combo(frame_izquierda, "Categoría:", categorias)
+        self.entry_costo = WidgetsFactory.crear_campo_entry(frame_izquierda, "Costo:", "5000.00")
+        self.entry_precio = WidgetsFactory.crear_campo_entry(frame_derecha, "Precio:", "10000.00")
+        self.entry_stock = WidgetsFactory.crear_campo_entry(frame_derecha, "Stock actual:", "10")
+        self.entry_stock_min = WidgetsFactory.crear_campo_entry(frame_derecha, "Stock mínimo:", "5")
+        self.combo_unidad = WidgetsFactory.crear_campo_combo(frame_derecha, "Unidad medida:", unidad_medida)
 
         # Creación de botón 'Registro'.
-        crear_boton(self.main_frame, "Registrar", self._registrar_producto)
+        WidgetsFactory.crear_boton(self.main_frame, "Registrar", self._registrar_producto)
 
     # (3) Método para validar datos del producto:
     def _validar_producto(self, nombre, descripcion, categoria, costo, precio, stock, stock_min, unidad):

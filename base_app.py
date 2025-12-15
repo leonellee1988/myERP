@@ -15,4 +15,4 @@ class BaseERPApp(ctk.CTk):
 
         # Configurar título.
         self.label_titulo = ctk.CTkLabel(self.main_frame, text=titulo_modulo, font=("Arial", 20, "bold"))
-        self.label_titulo.pack(pady=20)
+        self.label_titulo.pack(pady=20)          

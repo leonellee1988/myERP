@@ -1,10 +1,10 @@
 import sqlite3
 
-# (1) Función para conectar con BD.
+# Función para conectar con BD.
 def conectar():
     return sqlite3.connect("myERP.db")
 
-# (2) Función para insertar registros tabla Clientes.
+# Función para insertar registros tabla Clientes.
 def insertar_cliente(nombre, nit, edad, telefono, email, plazo_cobro):
     conn = None
     try:
@@ -34,7 +34,7 @@ def insertar_cliente(nombre, nit, edad, telefono, email, plazo_cobro):
             except:
                 pass
 
-# (3) Función para insertar registros tabla Productos.
+# Función para insertar registros tabla Productos.
 def insertar_producto(nombre, descripcion, categoria, costo, precio_venta, stock, stock_min, unidad):
     conn = None
     try:
@@ -54,7 +54,7 @@ def insertar_producto(nombre, descripcion, categoria, costo, precio_venta, stock
             except:
                 pass
 
-# (4) Función para insertar registros tabla Proveedores.
+# Función para insertar registros tabla Proveedores.
 def insertar_proveedor(nombre, nit, contacto, telefono, email, plazo_pago):
     conn = None
     try:
@@ -84,7 +84,7 @@ def insertar_proveedor(nombre, nit, contacto, telefono, email, plazo_pago):
             except:
                 pass
 
-# (5) Función para obtener registros de la tabla Proveedores.
+# Función para obtener registros de la tabla Proveedores.
 def obtener_proveedores():
     conn = None
     try:
@@ -104,7 +104,7 @@ def obtener_proveedores():
         if conn:
             conn.close()
 
-# (6) Función para obtener registros de la tabla Productos.
+# Función para obtener registros de la tabla Productos.
 def obtener_productos():
     conn = None
     try:

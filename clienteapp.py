@@ -2,15 +2,14 @@ from tkinter import messagebox
 from database import insertar_cliente
 from base_app import BaseERPApp
 from validaciones import Validaciones
-from widgets import config_apariencia, crear_frame, crear_frame_izquierda, crear_frame_derecha, \
-crear_campo_combo, crear_boton, crear_campo_entry
+from widgets import WidgetsFactory
 
 # Opciones para combobox plazo en cobros.
 plazos_cobro = ["Seleccione un valor...", "Al contado", "Crédito 7 días", "Crédito 15 días",
     "Crédito 30 días", "Crédito 60 días", "Crédito 90 días"]
 
 # Configurar apariencia.
-config_apariencia("dark", "blue")
+WidgetsFactory.config_apariencia("dark", "blue")
 
 class ClienteApp(BaseERPApp):
     # (1) Método constructor
@@ -20,22 +19,22 @@ class ClienteApp(BaseERPApp):
     
     # (2) Método para la creación de clientes (viene de constructor)
     def _crear_seccion_cliente(self):
-        frame_cliente = crear_frame(self.main_frame, "x", 10, "Registrar nuevo cliente")
+        frame_cliente = WidgetsFactory.crear_frame(self.main_frame, "x", 10, "Registrar nuevo cliente")
 
         # Contenedor para el frame izquierda/derecha.
-        frame_izquierda = crear_frame_izquierda(frame_cliente)
-        frame_derecha = crear_frame_derecha(frame_cliente)
+        frame_izquierda = WidgetsFactory.crear_frame_izquierda(frame_cliente)
+        frame_derecha = WidgetsFactory.crear_frame_derecha(frame_cliente)
 
         # Creación de los campos del módulo Clientes.
-        self.entry_nombre = crear_campo_entry(frame_izquierda, "Nombre completo:", "Edwin Lee")
-        self.entry_nit = crear_campo_entry(frame_izquierda, "NIT:", "12345678")
-        self.entry_edad = crear_campo_entry(frame_izquierda, "Edad:", "18")
-        self.entry_telefono = crear_campo_entry(frame_derecha, "Teléfono:", "7832-2925")
-        self.entry_email = crear_campo_entry(frame_derecha, "Email:", "ejemplo@empresa.com")
-        self.combo_pago = crear_campo_combo(frame_derecha, "Plazo cobro:", plazos_cobro)
+        self.entry_nombre = WidgetsFactory.crear_campo_entry(frame_izquierda, "Nombre completo:", "Edwin Lee")
+        self.entry_nit = WidgetsFactory.crear_campo_entry(frame_izquierda, "NIT:", "12345678")
+        self.entry_edad = WidgetsFactory.crear_campo_entry(frame_izquierda, "Edad:", "18")
+        self.entry_telefono = WidgetsFactory.crear_campo_entry(frame_derecha, "Teléfono:", "7832-2925")
+        self.entry_email = WidgetsFactory.crear_campo_entry(frame_derecha, "Email:", "ejemplo@empresa.com")
+        self.combo_pago = WidgetsFactory.crear_campo_combo(frame_derecha, "Plazo cobro:", plazos_cobro)
 
         # Creación de botón 'Registro'.
-        crear_boton(self.main_frame, "Registrar", self._registrar_cliente)
+        WidgetsFactory.crear_boton(self.main_frame, "Registrar", self._registrar_cliente)
     
     # (3) Método para validar datos del cliente:
     def _validar_cliente(self, nombre, nit, edad, telefono, email, plazo_cobro):
