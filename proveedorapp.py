@@ -2,15 +2,14 @@ from tkinter import messagebox
 from database import insertar_proveedor
 from base_app import BaseERPApp
 from validaciones import Validaciones
-from widgets import config_apariencia, crear_frame, crear_frame_izquierda, crear_frame_derecha, \
-crear_campo_combo, crear_boton, crear_campo_entry
+from widgets import WidgetsFactory
 
 # Opciones para combobox plazo en pagos.
 plazos_pago = ["Seleccione un valor...", "Al contado", "Crédito 7 días", "Crédito 15 días",
     "Crédito 30 días", "Crédito 60 días", "Crédito 90 días"]
 
 # Configurar apariencia.
-config_apariencia("dark", "blue")
+WidgetsFactory.config_apariencia("dark", "blue")
 
 class ProveedorApp(BaseERPApp):
     # (1) Método constructor.
@@ -20,22 +19,22 @@ class ProveedorApp(BaseERPApp):
     
     # (2) Método para la creación de proveedores (viene de constructor)
     def _crear_seccion_proveedor(self):
-        frame_proveedor = crear_frame(self.main_frame, "x", 10, "Registrar nuevo proveedor")
+        frame_proveedor = WidgetsFactory.crear_frame(self.main_frame, "x", 10, "Registrar nuevo proveedor")
 
         # Contenedor para el frame izquierda.
-        frame_izquierda = crear_frame_izquierda(frame_proveedor)
-        frame_derecha = crear_frame_derecha(frame_proveedor)
+        frame_izquierda = WidgetsFactory.crear_frame_izquierda(frame_proveedor)
+        frame_derecha = WidgetsFactory.crear_frame_derecha(frame_proveedor)
 
         # Creación de los campos del módulo Proveedores.
-        self.entry_nombre = crear_campo_entry(frame_izquierda, "Razón Social:", "Consultoría en Datos, S.A.")
-        self.entry_nit = crear_campo_entry(frame_izquierda, "NIT:", "12345678")
-        self.entry_contacto = crear_campo_entry(frame_izquierda, "Nombre contacto:", "Noemí Hernández")
-        self.entry_telefono = crear_campo_entry(frame_derecha, "Teléfono:", "7832-2925")
-        self.entry_email = crear_campo_entry(frame_derecha, "Email:", "ejemplo@empresa.com")
-        self.combo_pago = crear_campo_combo(frame_derecha, "Plazo pago:", plazos_pago)
+        self.entry_nombre = WidgetsFactory.crear_campo_entry(frame_izquierda, "Razón Social:", "Consultoría en Datos, S.A.")
+        self.entry_nit = WidgetsFactory.crear_campo_entry(frame_izquierda, "NIT:", "12345678")
+        self.entry_contacto = WidgetsFactory.crear_campo_entry(frame_izquierda, "Nombre contacto:", "Noemí Hernández")
+        self.entry_telefono = WidgetsFactory.crear_campo_entry(frame_derecha, "Teléfono:", "7832-2925")
+        self.entry_email = WidgetsFactory.crear_campo_entry(frame_derecha, "Email:", "ejemplo@empresa.com")
+        self.combo_pago = WidgetsFactory.crear_campo_combo(frame_derecha, "Plazo pago:", plazos_pago)
 
         # # Creación de botón 'Registro'.
-        crear_boton(self.main_frame, "Registrar", self._registrar_proveedor)
+        WidgetsFactory.crear_boton(self.main_frame, "Registrar", self._registrar_proveedor)
     
     # (3) Método para validar datos del proveedor:
     def _validar_proveedor(self, nombre, nit, contacto, telefono, email, plazo_pago):
