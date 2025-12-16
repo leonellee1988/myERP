@@ -1,5 +1,5 @@
 from tkinter import messagebox
-from database import insertar_proveedor
+from database import ConexionBD
 from base_app import BaseERPApp
 from validaciones import Validaciones
 from widgets import WidgetsFactory
@@ -91,7 +91,7 @@ class ProveedorApp(BaseERPApp):
         
         # Inserción de datos en BD y limpieza de campos en módulo.
         try:
-            insertar_proveedor(nombre, nit, contacto, telefono, email, plazo_pago)
+            ConexionBD.insertar_proveedor(nombre, nit, contacto, telefono, email, plazo_pago)
             self._limpiar_campos()
             messagebox.showinfo("Éxito", "Proveedor registrado correctamente")
         except Exception as error:

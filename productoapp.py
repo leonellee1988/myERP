@@ -1,5 +1,5 @@
 from tkinter import messagebox
-from database import insertar_producto
+from database import ConexionBD
 from base_app import BaseERPApp
 from validaciones import Validaciones
 from widgets import WidgetsFactory
@@ -113,7 +113,7 @@ class ProductoApp(BaseERPApp):
         
         # Inserción de datos en BD y limpieza de campos en módulo.
         try:
-            insertar_producto(nombre, descripcion, categoria, costo, precio, stock, stock_min, unidad)
+            ConexionBD.insertar_producto(nombre, descripcion, categoria, costo, precio, stock, stock_min, unidad)
             self._limpiar_campos()
             messagebox.showinfo("Éxito", "Producto registrado correctamente")
         except Exception as error:
