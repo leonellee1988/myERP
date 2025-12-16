@@ -86,14 +86,22 @@ class WidgetsFactory():
     
     # Método para frame de controles.
     @staticmethod
-    def crear_frame_controles(parent, text_boton="Agregar", comando_boton=None):
+    def crear_frame_controles(parent, text_btn_agregar="Agregar", comando_agregar=None, text_btn_guardar="Guardar",
+        comando_guardar=None):
         frame_controles = ctk.CTkFrame(parent)
         frame_controles.pack(fill="x", padx=20, pady=(0,10))
-        btn_agregar = ctk.CTkButton(frame_controles, text=text_boton, command=comando_boton, width=150, height=35, font=("Arial", 12))
+
+        btn_agregar = ctk.CTkButton(frame_controles, text=text_btn_agregar, command=comando_agregar, 
+            width=150, height=35, font=("Arial", 12))
         btn_agregar.pack(side="left", padx=(0,10))
+        btn_guardar = ctk.CTkButton(frame_controles, text=text_btn_guardar, command=comando_guardar,
+            width=150, height=35, font=("Arial", 12))
+        btn_guardar.pack(side="left", padx=(0, 10))
+
         return {
             "frame": frame_controles,
-            "btn_agregar": btn_agregar
+            "btn_agregar": btn_agregar,
+            "btn_guardar": btn_guardar
         }
     
     # Método para frame de tabla.

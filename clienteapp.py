@@ -1,5 +1,5 @@
 from tkinter import messagebox
-from database import insertar_cliente
+from database import ConexionBD
 from base_app import BaseERPApp
 from validaciones import Validaciones
 from widgets import WidgetsFactory
@@ -91,7 +91,7 @@ class ClienteApp(BaseERPApp):
         
         # Inserción de datos en BD y limpieza de campos en módulo.
         try:
-            insertar_cliente(nombre, nit, edad, telefono, email, plazo_cobro)
+            ConexionBD.insertar_cliente(nombre, nit, edad, telefono, email, plazo_cobro)
             self._limpiar_campos()
             messagebox.showinfo("Éxito", "Cliente registrado correctamente")
         except Exception as error:

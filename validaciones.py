@@ -64,6 +64,22 @@ class Validaciones:
             return False
         return True
     
+    # Método para validar valores enteros.
+    @staticmethod
+    def validar_valores_enteros(valor, nombre_campo: str) -> bool:
+        if not valor:
+            messagebox.showerror("Error", f"El campo: {nombre_campo} es obligatorio")
+            return False
+        try:
+            valor_num = int(valor)
+            if valor_num < 0:
+                messagebox.showerror("Error", f"El {nombre_campo} debe ser mayor a cero")
+                return False
+        except ValueError:
+            messagebox.showerror("Error", f"El {nombre_campo} debe ser un número real")
+            return False
+        return True
+    
     # Métodos para validar valores monetarios.
     @staticmethod
     def validar_valor_monetario(valor, nombre_campo: str) -> bool:
@@ -106,3 +122,11 @@ class Validaciones:
         except ValueError:
             messagebox.showerror("Error", "Ingrese una fecha válida")
             return False
+    
+    # Método para validación ID.
+    @staticmethod
+    def validar_id(lista_datos, nombre_buscado, entidad_tipo):
+        for item in lista_datos:
+            if item[1] == nombre_buscado:
+                return item[0], None
+        return None, f"{entidad_tipo.capitalize()}  {nombre_buscado} no encontrado"
